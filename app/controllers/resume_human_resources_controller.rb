@@ -4,8 +4,9 @@ require 'csv'
 class ResumeHumanResourcesController < ApplicationController
   def create
     unless @current_user.active_resume.present?
-      return render_error({errors: ['Please upload resume'] }, status: :unprocessable_entity)
+      return render_error({ errors: ['Please upload resume'] }, status: :unprocessable_entity)
     end
+
     if permitted_params[:bulk_upload]
       file = permitted_params[:file]
 

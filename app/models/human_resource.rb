@@ -20,8 +20,8 @@ class HumanResource < ApplicationRecord
   end
 
   def email_phone_presence
-    if self.email.blank? || self.phone_number.blank?
-      errors.add(:base, 'Either email or phone number must be present')
-    end
+    return unless email.blank? || phone_number.blank?
+
+    errors.add(:base, 'Either email or phone number must be present')
   end
 end

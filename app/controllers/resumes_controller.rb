@@ -24,6 +24,7 @@ class ResumesController < ApplicationController
   private
 
   def permitted_params
-    params.require(:resume).permit(:file, :user_id, :title, :subject, :description, :public_url, :experience, :skills_set)
+    params.require(:resume).permit(:file, :user_id, :title, :subject, :description, :public_url, :experience,
+                                   :skills_set)
   end
 end

@@ -21,4 +21,7 @@ Rails.application.routes.draw do
   resources :resumes, only: %i[create update]
   resources :resume_human_resources, only: %i[create index]
   resources :human_resources, only: %i[create index]
+
+  resources :forms, only: [:create]
+  resources :submitted_responses, only: %i[create index update]
 end
