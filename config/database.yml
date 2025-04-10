@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL']%>
   database: auto_resume_sender_production
   username: resume_sender_user
   password: <%= ENV["AUTO_RESUME_SENDER_DATABASE_PASSWORD"] %>
