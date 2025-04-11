@@ -6,25 +6,25 @@ class UsersController < ApplicationController
   def signup
     user = User.new(permitted_params)
     if user.save
-      render json: { data: user, message: 'Created successfully' }, status: :created
+      render_success({ data: user, message: 'Created successfully' }, status: :created)
     else
-      render json: { error: user.errors.full_messages }, status: :unprocessable_entity
+      render_error({ errors: user.errors.full_messages }, status: :unprocessable_entity)
     end
   end
 
   def signin
     user = User.find_by_email(permitted_params[:email])
-    return render json: { error: 'Email not found' } if user.nil?
+    return render_error({ error: 'Email not found' }) if user.nil?
 
     if user&.authenticate(permitted_params[:password])
       token = JwtService.encode(user_id: user.id)
-      return render json: { data: user.attributes.merge!(token:), message: 'signed in successfully!' }
+      return render_success({ data: user, message: 'Signed in successfully!', instance_options: {token: token} }, status: :ok)
     end
-    render json: { error: 'Incorrect password' }
+    render_error({ error: 'Incorrect password' })
   end
 
   def profile
-    render json: @current_user.attributes.merge(resume: @current_user.active_resume)
+    render_success({data: @current_user})
   end
 
   private
